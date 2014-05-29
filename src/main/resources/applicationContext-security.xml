@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:sec="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.0.xsd"
+	default-lazy-init="true">
+
+	<description>SpringSecurity安全配置</description>
+
+	<!-- http安全配置 -->
+	<!--
+		auto-config = true 则使用from-login. 如果不使用该属性 则默认为http-basic(没有session).
+		access-denied-page:出错后跳转到的错误页面;
+	-->
+	<sec:http use-expressions="true">
+		<sec:custom-filter before="FILTER_SECURITY_INTERCEPTOR" ref="accessAuthenticationFilter"/>
+		<sec:custom-filter position="LOGOUT_FILTER" ref="accessLogoutFilter"/>
+		<sec:custom-filter before="FORM_LOGIN_FILTER" ref="loadSecuritySourceFilter"/>
+		
+		<sec:anonymous enabled="false"/>
+		<!--
+			intercept-url:拦截器,可以设定哪些路径需要哪些权限来访问. filters=none 不使用过滤,也可以理解为忽略
+		-->
+		<sec:intercept-url pattern="/css/**" filters="none" />
+		<sec:intercept-url pattern="/img/**" filters="none" />
+		<sec:intercept-url pattern="/image/**" filters="none" />
+		<sec:intercept-url pattern="/js/**" filters="none" />
+		<sec:intercept-url pattern="/themes/**" filters="none" />
+		<sec:intercept-url pattern="/login.action" filters="none" />
+		<sec:intercept-url pattern="/index.jsp" filters="none" />
+		<sec:intercept-url pattern="/welcome.jsp" filters="none" />
+		<sec:intercept-url pattern="/WEB-INF/content/login.jsp" filters="none" />
+		<sec:intercept-url pattern="/WEB-INF/content/sso.jsp" filters="none" />
+		<sec:intercept-url pattern="/login/forword!forwardFramePage.action" filters="none" />
+		<sec:intercept-url pattern="/login/forword!forwardFirstPage.action" filters="none" />
+		<sec:intercept-url pattern="/WEB-INF/content/common/frame.jsp" filters="none" />
+		<sec:intercept-url pattern="/pm/user/user!checkUserIsExisting.action" filters="none" />
+		<!-- rest web service -->
+		<sec:intercept-url pattern="/rs/**" filters="none" />
+		<sec:intercept-url pattern="/**" access="isAuthenticated()"  />
+		<!--
+			login-page:默认指定的登录页面. authentication-failure-url:出错后跳转页面.
+			default-target-url:成功登陆后跳转页面
+		-->
+		<!-- logout-success-url:成功注销后跳转到的页面; -->
+		<sec:form-login login-page="/login.action" default-target-url="/welcome.jsp" authentication-failure-url="/login.action?error=true" always-use-default-target="true"/>
+<!--		<sec:logout logout-success-url="/login.action" />-->
+
+		<!-- session-management是针对session的管理. 这里可以不配置. 如有需求可以配置. -->
+		<!--
+			id登陆唯一. 后登陆的账号会挤掉第一次登陆的账号 error-if-maximum-exceeded="true" 禁止2次登陆;
+			session-fixation-protection="migrateSession" 
+			用户登录成功后会销毁用户当前的session. 创建新的session,并把用户信息复制到新session中，这是默认值。
+		-->
+<!--		<sec:session-management>-->
+<!--					<sec:concurrency-control max-sessions="1" error-if-maximum-exceeded="true"/>-->
+<!--		</sec:session-management>-->
+		
+	</sec:http>
+
+	<!-- 认证配置, 使用userDetailsService提供的用户信息 -->
+	<sec:authentication-manager alias="authenticationManager">
+		<!--
+			密码加密方式. 常用的有md5 和 sha. salt-source:加盐加密. 追加安全性.-->
+		<sec:authentication-provider user-service-ref="userDetailsServiceImpl">
+			<!--<s:password-encoder hash="plaintext" />-->
+			<!--<s:password-encoder ref="passwordEncoder" />-->
+			<sec:password-encoder hash="md5">
+				<!--				<sec:salt-source user-property="username"/>-->
+			</sec:password-encoder>
+		</sec:authentication-provider>
+	</sec:authentication-manager>
+
+	<bean id="accessAuthenticationFilter" class="com.dalian.genpact.framework.extend.security.AccessAuthenticationFilter">
+		<property name="authenticationManager" ref="authenticationManager"></property>
+		<!-- 访问决策器，决定某个用户具有的角色，是否有足够的权限去访问某个资源     -->
+		<property name="accessDecisionManager" ref="urlAccessDecisionManager"></property>
+		<property name="securityMetadataSource" ref="invocationSecurityMetadataSourceService"></property>
+	</bean>
+	
+	<bean id="urlAccessDecisionManager" class="com.dalian.genpact.framework.extend.security.UrlAccessDecisionManager"></bean>
+	<!-- 资源源数据定义，将所有的资源和权限对应关系建立起来，即定义某一资源可以被哪些角色访问     -->   
+	<bean id="invocationSecurityMetadataSourceService" init-method="loadResourceDefine" class="com.dalian.genpact.framework.extend.security.InvocationSecurityMetadataSourceService">
+	</bean>
+	
+	<bean id="accessLogoutFilter"  class="com.dalian.genpact.framework.extend.security.AccessLogoutFilter">
+		<constructor-arg value="/login.action"></constructor-arg>
+		<constructor-arg>
+			<list>
+				<bean class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler"></bean>
+			</list>
+		</constructor-arg>
+	</bean>
+	
+	<bean id="loadSecuritySourceFilter" class="com.dalian.genpact.framework.extend.security.LoadSecuritySourceFilter"></bean>
+</beans>

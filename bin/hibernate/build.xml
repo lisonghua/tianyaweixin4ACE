@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="gen code tools" default="generate.full.code" xmlns:artifact="antlib:org.apache.maven.artifact.ant">
+
+	<property name="hibernatetools-templates.path" value="template" />
+	<property name="maven.path" value="E:\opensource\springside-3.3.2-all-in-one\springside-3.3.2\tools\maven\apache-maven-2.2.1" />
+
+	<artifact:dependencies pathId="toolslib" settingsFile="${maven.path}\conf\settings.xml">
+		<pom file="../../pom.xml" />
+	</artifact:dependencies>
+
+	<taskdef name="hibernatetool" classname="org.hibernate.tool.ant.HibernateToolTask" classpathref="toolslib" />
+
+	<target name="generate.full.code" depends="generate.persistence.code,generate.service.code,generate.web.code,generate.jsp.code">
+	</target>
+
+	<target name="generate.persistence.code">
+		<hibernatetool destdir="generated" templatepath="${hibernatetools-templates.path}/">
+			<classpath>
+				<path refid="toolslib"/>
+			</classpath>
+
+			<jdbcconfiguration configurationfile="hibernate.cfg.xml" revengfile="hibernate.reveng.xml" detectmanytomany="true" namingstrategy="org.hibernate.cfg.ImprovedNamingStrategy" reversestrategy="org.lish.codegen.IgnoreUnderlinePrefixReverseEngineeringStrategy" />
+
+			<hbmtemplate templateprefix="pojo/" template="pojo/Pojo.ftl" filepattern="{package-name}/persistence/entity/{class-name}.java">
+				<property key="jdk5" value="true" />
+				<property key="ejb3" value="true" />
+			</hbmtemplate>
+			<hbmtemplate templateprefix="pojo/" template="dao.ftl" filepattern="{package-name}/persistence/dao/{class-name}Dao.java" />
+		</hibernatetool>
+	</target>
+
+	<target name="generate.service.code">
+		<hibernatetool destdir="generated" templatepath="${hibernatetools-templates.path}/">
+			<classpath>
+				<path refid="toolslib"/>
+			</classpath>
+			<jdbcconfiguration configurationfile="hibernate.cfg.xml" revengfile="hibernate.reveng.xml" detectmanytomany="true" namingstrategy="org.hibernate.cfg.ImprovedNamingStrategy" reversestrategy="org.lish.codegen.IgnoreUnderlinePrefixReverseEngineeringStrategy" />
+			<hbmtemplate templateprefix="pojo/" template="manager.ftl" filepattern="{package-name}/service/{class-name}Manager.java" />
+		</hibernatetool>
+	</target>
+
+	<target name="generate.web.code">
+		<hibernatetool destdir="generated" templatepath="${hibernatetools-templates.path}/">
+			<classpath>
+				<path refid="toolslib"/>
+			</classpath>
+
+			<jdbcconfiguration configurationfile="hibernate.cfg.xml" revengfile="hibernate.reveng.xml" detectmanytomany="true" namingstrategy="org.hibernate.cfg.ImprovedNamingStrategy" reversestrategy="org.lish.codegen.IgnoreUnderlinePrefixReverseEngineeringStrategy" />
+			<hbmtemplate templateprefix="pojo/" template="action.ftl" filepattern="{package-name}/web/{class-name}Action.java" exporterClass="org.lish.codegen.ActionExporter">
+				<property key="jdk5" value="true" />
+				<property key="ejb3" value="true" />
+			</hbmtemplate>
+			<hbmtemplate templateprefix="pojo/" template="constant.ftl" filepattern="{package-name}/web/{class-name}Constant.java" exporterClass="org.lish.codegen.ActionExporter">
+				<property key="jdk5" value="true" />
+				<property key="ejb3" value="true" />
+			</hbmtemplate>
+		</hibernatetool>
+	</target>
+	<target name="generate.jsp.code">
+		<hibernatetool destdir="generated" templatepath="${hibernatetools-templates.path}/">
+			<classpath>
+				<path refid="toolslib"/>
+			</classpath>
+
+			<jdbcconfiguration configurationfile="hibernate.cfg.xml" revengfile="hibernate.reveng.xml" detectmanytomany="true" namingstrategy="org.hibernate.cfg.ImprovedNamingStrategy" reversestrategy="org.lish.codegen.IgnoreUnderlinePrefixReverseEngineeringStrategy" />
+			<hbmtemplate templateprefix="pojo/" template="query.ftl" filepattern="{package-name}/jsp/{class-name}Query.jsp" exporterClass="org.lish.codegen.ActionExporter" />
+			<hbmtemplate templateprefix="pojo/" template="edit.ftl" filepattern="{package-name}/jsp/{class-name}Edit.jsp" exporterClass="org.lish.codegen.ActionExporter" />
+		</hibernatetool>
+	</target>
+</project>

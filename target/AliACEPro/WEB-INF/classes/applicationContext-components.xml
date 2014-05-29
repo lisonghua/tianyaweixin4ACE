@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	<!-- Common configuration -->
+	<import resource="classpath:applicationContext-common.xml"/>
+	<!-- JDBC Template configuration -->
+<!--	<import resource="classpath:applicationContext-jdbc.xml"/>-->
+	<!-- Security configuration -->
+	<import resource="classpath:applicationContext-security.xml"/>
+<!-- 通过sso登录系统请打开注释，访问地址格式：http://58.2.219.35:9090/tianyaweixin/sso.action?j_remoteuser=admin -->
+<!--	<import resource="classpath:applicationContext-security-sso.xml"/>-->
+	<!-- Rule Template configuration -->
+<!--	<import resource="classpath:applicationContext-jrules.xml" />-->
+	<import resource="classpath:applicationContext-workflow.xml"/>
+</beans>

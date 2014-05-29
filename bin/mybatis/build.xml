@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="mybatis tools" default="generate.code" xmlns:artifact="antlib:org.apache.maven.artifact.ant" basedir=".">
+	<property name="generated.source.dir" value="${basedir}" />
+	
+	<artifact:dependencies pathId="toolslib" settingsFile="E:\opensource\springside-3.3.2-all-in-one\springside-3.3.2\tools\maven\apache-maven-2.2.1\conf\settings.xml">
+		<pom file="../../pom.xml" />
+	</artifact:dependencies>
+	
+	<target name="generate.code" description="Generate the files">
+		<taskdef name="mbgenerator" classname="org.mybatis.generator.ant.GeneratorAntTask" classpathref="toolslib" />
+		<mbgenerator overwrite="true" configfile="generatorConfig.xml" verbose="true">
+			<propertyset>
+				<propertyref name="generated.source.dir" />
+			</propertyset>
+		</mbgenerator>
+	</target>
+</project>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering 
+  SYSTEM "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+<hibernate-reverse-engineering>
+<!--	<type-mapping>-->
+<!--		<sql-type jdbc-type="NUMBER" hibernate-type="integer" ></sql-type>-->
+<!--	</type-mapping>-->
+<!--	<table-filter match-schema=".*" match-name="t_pm_privilege" package="com.dalian.genpact.pm.bak"/>-->
+<!--	<table-filter match-schema=".*" match-name=".*" package="com.dalian.genpact.pm.bak"/>-->
+<!--	 <table-filter match-schema=".*" match-name="t_common_dic" exclude="true"/>-->
+	 <table-filter match-schema=".*" match-name="t_common_seq" package="com.dalian.genpact.common.seq"/> 
+<!--<table-filter match-schema=".*" match-name="t_sm_server" package="com.dalian.genpact.sm"/>-->
+<!--<table-filter match-schema=".*" match-name="t_sm_datasource" package="com.dalian.genpact.sm"/>-->
+<!--<table-filter match-schema=".*" match-name="t_pm_user" package="com.dalian.genpact.pm"/>-->
+<!--<table-filter match-schema=".*" match-name="t_pm_organization" package="com.dalian.genpact.pm"/>-->
+<!--<table-filter match-schema=".*" match-name="t_pm_userorg" package="com.dalian.genpact.pm"/>-->
+<!--<table-filter match-schema=".*" match-name="t_rp_.*" package="com.dalian.genpact.rp"/>-->
+<!--<table-filter match-schema=".*" match-name="t_pm_.*" package="com.dalian.genpact.pm"/>-->
+<!--<table-filter match-schema=".*" match-name="act_.*" package="com.dalian.genpact.wf"/>-->
+<!--<table-filter match-schema=".*" match-name="t_wf_bizprocmap" package="com.dalian.genpact.wf"/>-->
+<!--<table-filter match-schema=".*" match-name="t_demo_application" package="com.dalian.genpact.wf.demo"/>-->
+<table-filter match-schema=".*" match-name="T_WF_EMAILTEMP" package="com.dalian.genpact.framework.wf"/>
+</hibernate-reverse-engineering>

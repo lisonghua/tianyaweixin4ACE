@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="true">
+
+	<description>Spring Jdbc Template配置</description>
+
+	<bean id="userDao" class="com.dalian.genpact.persistence.dao.pm.UserDao">
+		<property name="searchUserByGroupSql">
+			<value><![CDATA[
+			SELECT U.USER_ID,U.SSO,U.NAME,U.EMAIL,U.USER_STATUS
+  			FROM    T_PM_USER U
+  			## Dynamic Content
+  			#if($groupId)
+       		INNER JOIN T_PM_USERGROUP UG ON UG.USER_ID = U.USER_ID
+       		#end
+			WHERE 1=1
+			#if($sso)
+			AND U.SSO=':sso'
+			#end
+			#if($name)
+			AND U.NAME LIKE '%:name%'
+			#end
+			#if($email) 
+			AND U.EMAIL='%:email%'
+			#end
+			#if($groupId) 
+			AND UG.GROUP_ID=:groupId
+			#end
+			ORDER BY U.NAME
+			]]></value>
+		</property>
+	</bean>
+	
+<!--	<bean id="moduleDao" class="com.dalian.genpact.pm.ModuleDao">-->
+<!--		<property name="searchUserByModule">-->
+<!--			<value>-->
+<!--			<![CDATA[-->
+<!--			-->
+<!--			]]>-->
+<!--			</value>-->
+<!--		</property>-->
+<!--	</bean>-->
+</beans>
