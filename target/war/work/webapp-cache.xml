@@ -1438,7 +1438,26 @@
           <string>WEB-INF/classes/applicationContext-security-sso.xml</string>
           <string>WEB-INF/classes/applicationContext-security.xml</string>
           <string>WEB-INF/classes/applicationContext-workflow.xml</string>
-          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/Demo.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/core/WeiXinServlet.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/BaseMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/ImageMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/LinkMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/LocationMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/TextMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/VoiceMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/resp/Article.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/resp/BaseMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/resp/Music.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/resp/MusicMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/resp/NewsMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/resp/TextMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/model/Authentication.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/service/MessageService.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/utils/MessageUtil$1$1.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/utils/MessageUtil$1.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/utils/MessageUtil.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/utils/WeiXinSignUtil.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/web/AuthenticationAction.class</string>
           <string>WEB-INF/classes/custom-sql/applicationContext-jdbc-pm.xml</string>
           <string>WEB-INF/classes/ehcache/ehcache-hibernate-local.xml</string>
           <string>WEB-INF/classes/jta.properties</string>
@@ -1615,6 +1634,9 @@
           <string>WEB-INF/lib/jxls-core-0.9.9.jar</string>
           <string>WEB-INF/lib/commons-jexl-1.1.jar</string>
           <string>WEB-INF/lib/services-api-1.4.15.jar</string>
+          <string>WEB-INF/lib/xstream-1.4.7.jar</string>
+          <string>WEB-INF/lib/xmlpull-1.1.3.1.jar</string>
+          <string>WEB-INF/lib/xpp3_min-1.1.4c.jar</string>
         </pathsSet>
       </path-set>
     </entry>
@@ -1666,6 +1688,18 @@
         <optional>false</optional>
       </dependency>
       <targetFileName>services-api-1.4.15.jar</targetFileName>
+    </org.apache.maven.plugin.war.util.DependencyInfo>
+    <org.apache.maven.plugin.war.util.DependencyInfo>
+      <dependency>
+        <groupId>com.thoughtworks.xstream</groupId>
+        <artifactId>xstream</artifactId>
+        <version>1.4.7</version>
+        <type>jar</type>
+        <scope>compile</scope>
+        <exclusions/>
+        <optional>false</optional>
+      </dependency>
+      <targetFileName>xstream-1.4.7.jar</targetFileName>
     </org.apache.maven.plugin.war.util.DependencyInfo>
     <org.apache.maven.plugin.war.util.DependencyInfo>
       <dependency>

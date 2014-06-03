@@ -35,6 +35,7 @@
 		<sec:intercept-url pattern="/login/forword!forwardFirstPage.action" filters="none" />
 		<sec:intercept-url pattern="/WEB-INF/content/common/frame.jsp" filters="none" />
 		<sec:intercept-url pattern="/pm/user/user!checkUserIsExisting.action" filters="none" />
+		<sec:intercept-url pattern="/weixin/service" filters="none" />
 		<!-- rest web service -->
 		<sec:intercept-url pattern="/rs/**" filters="none" />
 		<sec:intercept-url pattern="/**" access="isAuthenticated()"  />

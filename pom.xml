@@ -46,6 +46,12 @@
             <artifactId>services-api</artifactId>
             <version>1.4.15</version>
         </dependency>
+        <!-- other -->
+        <dependency>
+		    <groupId>com.thoughtworks.xstream</groupId>
+		    <artifactId>xstream</artifactId>
+		    <version>1.4.7</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>AliACEPro</finalName>
