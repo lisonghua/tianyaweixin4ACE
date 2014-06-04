@@ -1,5 +1,7 @@
 package com.dalian.genpact.tianyaweixin.message.req;
 
+import java.util.Map;
+
 public class LocationMessage extends BaseMessage {
 	// 地理位置维度  
 	private String Location_X;
@@ -9,6 +11,14 @@ public class LocationMessage extends BaseMessage {
 	private String Scale;
 	// 地理位置信息  
 	private String Label;
+
+	@Override
+	public void parseMessage(Map<String, String> msgMap) {
+		this.Location_X = msgMap.get("Location_X");
+		this.Location_Y = msgMap.get("Location_Y");
+		this.Scale = msgMap.get("Scale");
+		this.Label = msgMap.get("Label");
+	}
 
 	public String getLocation_X() {
 		return Location_X;

@@ -1,5 +1,7 @@
 package com.dalian.genpact.tianyaweixin.message.req;
 
+import java.util.Map;
+
 /**
  * 文本消息
  * 
@@ -9,6 +11,11 @@ package com.dalian.genpact.tianyaweixin.message.req;
 public class TextMessage extends BaseMessage {
 	// 消息内容
 	private String Content;
+
+	@Override
+	public void parseMessage(Map<String, String> msgMap) {
+		this.Content = msgMap.get("Content");
+	}
 
 	public String getContent() {
 		return Content;

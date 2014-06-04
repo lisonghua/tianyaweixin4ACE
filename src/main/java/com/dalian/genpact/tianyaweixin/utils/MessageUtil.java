@@ -97,13 +97,16 @@ public class MessageUtil {
 	 * @return
 	 * @throws Exception
 	 */
-	@SuppressWarnings("unchecked")
 	public static Map<String, String> parseXml(HttpServletRequest request) throws Exception {
-		// 将解析结果存储在HashMap中
-		Map<String, String> map = new HashMap<String, String>();
-
 		// 从request中取得输入流
 		InputStream inputStream = request.getInputStream();
+		return parseXml(inputStream);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static Map<String, String> parseXml(InputStream inputStream) throws Exception {
+		// 将解析结果存储在HashMap中
+		Map<String, String> map = new HashMap<String, String>();
 		// 读取输入流
 		SAXReader reader = new SAXReader();
 		Document document = reader.read(inputStream);

@@ -1,12 +1,14 @@
 package com.dalian.genpact.tianyaweixin.message.req;
 
+import java.util.Map;
+
 /**
  * 消息基类（普通用户 -> 公众帐号）
  * 
  * @author lisonghua
  * @date 2014-06-03
  */
-public class BaseMessage {
+public class BaseMessage implements ReqMessage {
 	// 开发者微信号
 	private String ToUserName;
 	// 发送方帐号（一个OpenID）
@@ -17,6 +19,14 @@ public class BaseMessage {
 	private String MsgType;
 	// 消息id，64位整型
 	private long MsgId;
+
+	public void parseMessage(Map<String, String> msgMap) {
+		this.ToUserName = msgMap.get("ToUserName");
+		this.FromUserName = msgMap.get("FromUserName");
+		this.MsgType = msgMap.get("MsgType");
+		this.CreateTime = Long.parseLong(msgMap.get("CreateTime"));
+		this.MsgId = Long.parseLong(msgMap.get("MsgId"));
+	}
 
 	public String getToUserName() {
 		return ToUserName;
