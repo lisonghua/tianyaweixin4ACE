@@ -49,32 +49,39 @@
 	}
 
 	function createCanvas(disabled){
-		try{
+		//try{
 			//initCanvas();
+			//alert(1);
 			workflow  = new draw2d.MyCanvas("paintarea");
+			//alert(10);
 			workflow.scrollArea=document.getElementById("designer-area");
+			//alert(11);
 			if(disabled)
 				workflow.setDisabled();
 			if(typeof processDefinitionId != "undefined" && processDefinitionId != null &&  processDefinitionId != "null" && processDefinitionId != "" && processDefinitionId != "NULL"){
 				openProcessDef();
 			}else{
+				//alert(2);
 					var id = "process"+Sequence.create();
 					//var id = workflow.getId();
-					workflow.process.category='genpact_wf_process_def';
+					workflow.process.category='lish_wf_process_def';
 					workflow.process.id=id;
 					workflow.process.name=id;
 				// Add the start,end,connector to the canvas
 				  var startObj = new draw2d.Start("${ctx}/js/designer/icons/type.startevent.none.png");
 				  //startObj.setId("start");
+				  //alert(3);
 				  workflow.addFigure(startObj, 200,50);
 				  
 				  var endObj   = new draw2d.End("${ctx}/js/designer/icons/type.endevent.none.png");
 				  //endObj.setId("end");
+				  //alert(4);
 				  workflow.addFigure(endObj,200,400);
+				  
 			} 
-		}catch(e){
-			alert(e.message);
-		}
+		//}catch(e){
+			//alert(e.message);
+		//}
 	}
 	//-->
 </script>

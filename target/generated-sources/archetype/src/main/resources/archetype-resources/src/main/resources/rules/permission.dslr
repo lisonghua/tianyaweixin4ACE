@@ -1,0 +1,35 @@
+#created on: Oct 19, 2010
+package com.dalian.genpact.rules.pm
+
+#list any import classes here.
+import com.dalian.genpact.pm.User;
+
+
+expander permission.dsl
+
+
+#declare any global variables here
+global com.dalian.genpact.service.pm.PermissionService ps;
+
+
+
+rule "Administrator can access all modules."
+	
+	when
+		#conditions
+		I am administrator,my id is "0" 
+		I am accessing a module
+	then 
+		#actions
+		I can access all modules
+end
+
+/*rule "others can only access authorized modules"
+	#include attributes such as "salience" here...
+	when
+		#conditions
+	then 
+		#actions
+		
+end
+*/

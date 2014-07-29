@@ -288,6 +288,7 @@
           <string>js/designer/connection/DecoratedConnection.js</string>
           <string>js/designer/connection/MyInputPort.js</string>
           <string>js/designer/connection/MyOutputPort.js</string>
+          <string>js/designer/container/SubProcess.js</string>
           <string>js/designer/designer.css</string>
           <string>js/designer/designer.js</string>
           <string>js/designer/event/End.js</string>
@@ -325,16 +326,30 @@
           <string>js/designer/icons/type.subprocess.collapsed.png</string>
           <string>js/designer/icons/type.subprocess.expanded.png</string>
           <string>js/designer/icons/type.user.png</string>
+          <string>js/designer/img/business_rule_task_bg.png</string>
+          <string>js/designer/img/call_activity_bg.png</string>
           <string>js/designer/img/circle.png</string>
           <string>js/designer/img/grid_10.png</string>
+          <string>js/designer/img/mail_task_bg.png</string>
           <string>js/designer/img/manual-task.png</string>
+          <string>js/designer/img/manual_task_bg.png</string>
           <string>js/designer/img/menu.gif</string>
           <string>js/designer/img/menu_sep.png</string>
+          <string>js/designer/img/receive_task_bg.png</string>
+          <string>js/designer/img/script_task_bg.png</string>
+          <string>js/designer/img/service_task_bg.png</string>
           <string>js/designer/img/Thumbs.db</string>
           <string>js/designer/MyCanvas.js</string>
+          <string>js/designer/Process.js</string>
           <string>js/designer/ResizeImage.js</string>
           <string>js/designer/task/BaseTask.js</string>
+          <string>js/designer/task/BusinessRuleTask.js</string>
+          <string>js/designer/task/CallActivity.js</string>
+          <string>js/designer/task/MailTask.js</string>
           <string>js/designer/task/ManualTask.js</string>
+          <string>js/designer/task/ReceiveTask.js</string>
+          <string>js/designer/task/ScriptTask.js</string>
+          <string>js/designer/task/ServiceTask.js</string>
           <string>js/designer/task/Task.js</string>
           <string>js/designer/task/UserTask.js</string>
           <string>js/draw2d/draw2d.js</string>
@@ -1401,17 +1416,29 @@
           <string>WEB-INF/content/wf/demo/ApplicationQuery.jsp</string>
           <string>WEB-INF/content/wf/designer/addCandidateGroup.jsp</string>
           <string>WEB-INF/content/wf/designer/addCandidateUser.jsp</string>
+          <string>WEB-INF/content/wf/designer/businessRuleTaskProperties.jsp</string>
+          <string>WEB-INF/content/wf/designer/callActivityProperties.jsp</string>
           <string>WEB-INF/content/wf/designer/candidateGroupsConfig.jsp</string>
           <string>WEB-INF/content/wf/designer/candidateUsersConfig.jsp</string>
           <string>WEB-INF/content/wf/designer/diagram.jsp</string>
+          <string>WEB-INF/content/wf/designer/executionListenerConfig.jsp</string>
           <string>WEB-INF/content/wf/designer/flowListenerConfig.jsp</string>
           <string>WEB-INF/content/wf/designer/flowProperties.jsp</string>
           <string>WEB-INF/content/wf/designer/index.jsp</string>
+          <string>WEB-INF/content/wf/designer/mailTaskProperties.jsp</string>
+          <string>WEB-INF/content/wf/designer/manualTaskProperties.jsp</string>
           <string>WEB-INF/content/wf/designer/parser.jsp</string>
           <string>WEB-INF/content/wf/designer/processListenerConfig.jsp</string>
           <string>WEB-INF/content/wf/designer/processProperties.jsp</string>
+          <string>WEB-INF/content/wf/designer/receiveTaskProperties.jsp</string>
+          <string>WEB-INF/content/wf/designer/scriptTaskProperties.jsp</string>
+          <string>WEB-INF/content/wf/designer/serviceTaskProperties.jsp</string>
+          <string>WEB-INF/content/wf/designer/taskFormConfig.jsp</string>
+          <string>WEB-INF/content/wf/designer/taskGeneral.jsp</string>
           <string>WEB-INF/content/wf/designer/taskListenerConfig.jsp</string>
+          <string>WEB-INF/content/wf/designer/taskMultiInstance.jsp</string>
           <string>WEB-INF/content/wf/designer/taskProperties.jsp</string>
+          <string>WEB-INF/content/wf/designer/userTaskProperties.jsp</string>
           <string>WEB-INF/content/wf/diagram.jsp</string>
           <string>WEB-INF/content/wf/diagram4inst.jsp</string>
           <string>WEB-INF/content/wf/EmailtempEdit.jsp</string>
@@ -1443,6 +1470,7 @@
           <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/ImageMessage.class</string>
           <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/LinkMessage.class</string>
           <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/LocationMessage.class</string>
+          <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/ReqMessage.class</string>
           <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/TextMessage.class</string>
           <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/req/VoiceMessage.class</string>
           <string>WEB-INF/classes/com/dalian/genpact/tianyaweixin/message/resp/Article.class</string>

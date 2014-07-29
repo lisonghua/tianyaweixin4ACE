@@ -51,3 +51,21 @@ draw2d.ResizeImage.prototype.setDimension = function(w, h) {
 draw2d.ResizeImage.prototype.setWorkflow = function(_4b06) {
 	draw2d.Node.prototype.setWorkflow.call(this, _4b06);
 };
+draw2d.ResizeImage.prototype.toBpmnDI=function(){
+	var w=this.getWidth();
+	var h=this.getHeight();
+	var x=this.getAbsoluteX();
+	var y=this.getAbsoluteY();
+	var xml='<bpmndi:BPMNShape bpmnElement="'+this.eventId+'" id="BPMNShape_'+this.eventId+'">\n';
+	xml=xml+'<omgdc:Bounds height="'+h+'" width="'+w+'" x="'+x+'" y="'+y+'"/>\n';
+	xml=xml+'</bpmndi:BPMNShape>\n';
+	return xml;
+};
+draw2d.ResizeImage.prototype.parseShapeXML=function(jqObject,workflow){
+	var x=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('x'));
+	var y=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('y'));
+	var width=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('width'));
+	var height=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('height'));
+	this.setDimension(width,height);
+	workflow.addFigure(this,x,y);
+};

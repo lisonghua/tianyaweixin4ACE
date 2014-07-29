@@ -15,10 +15,15 @@
         <SCRIPT src='${ctx}/js/draw2d/moocanvas.js'></SCRIPT>                        
         <SCRIPT src='${ctx}/js/draw2d/draw2d.js'></SCRIPT>
 
-
+<script type="text/javascript">
+<!--
+var jq = jQuery.noConflict();
+//-->
+</script>
         <!-- example specific imports -->
         <SCRIPT src="${ctx}/js/designer/MyCanvas.js"></SCRIPT>
         <SCRIPT src="${ctx}/js/designer/ResizeImage.js"></SCRIPT>
+        <SCRIPT src="${ctx}/js/designer/Process.js"></SCRIPT>
 		<SCRIPT src="${ctx}/js/designer/event/Start.js"></SCRIPT>
 		<SCRIPT src="${ctx}/js/designer/event/End.js"></SCRIPT>
 		<SCRIPT src="${ctx}/js/designer/connection/MyInputPort.js"></SCRIPT>
@@ -27,6 +32,13 @@
 		<SCRIPT src="${ctx}/js/designer/task/Task.js"></SCRIPT>
 		<SCRIPT src="${ctx}/js/designer/task/UserTask.js"></SCRIPT>
 		<SCRIPT src="${ctx}/js/designer/task/ManualTask.js"></SCRIPT>
+		<SCRIPT src="${ctx}/js/designer/task/ServiceTask.js"></SCRIPT>
+		<SCRIPT src="${ctx}/js/designer/task/ScriptTask.js"></SCRIPT>
+		<SCRIPT src="${ctx}/js/designer/task/MailTask.js"></SCRIPT>
+		<SCRIPT src="${ctx}/js/designer/task/ReceiveTask.js"></SCRIPT>
+		<SCRIPT src="${ctx}/js/designer/task/BusinessRuleTask.js"></SCRIPT>
+		<SCRIPT src="${ctx}/js/designer/task/CallActivity.js"></SCRIPT>
+		<SCRIPT src="${ctx}/js/designer/container/SubProcess.js"></SCRIPT>
 		<SCRIPT src="${ctx}/js/designer/gateway/ExclusiveGateway.js"></SCRIPT>
 		<SCRIPT src="${ctx}/js/designer/gateway/ParallelGateway.js"></SCRIPT>
 		<SCRIPT src="${ctx}/js/designer/designer.js"></SCRIPT>	
@@ -39,6 +51,11 @@ var processDefinitionName="<%=request.getParameter("procDefName")%>";
 var processDefinitionVariables=<%=request.getAttribute("_process_def_variables")%>;
 var _process_def_provided_listeners=<%=request.getAttribute("_process_def_provided_listeners")%>;
 var is_open_properties_panel = false;
+var task;
+var line;
+var formPropertyId;
+var listenerId;
+var executionListenerId;
 jq(function(){
 	try{
 		_task_obj = jq('#task');
@@ -85,7 +102,8 @@ jq(function(){
 						//jq(this).append(source)
 						//jq(this).removeClass('over');
 						var wfModel = jq(source).attr('wfModel');
-						var shape = jq(source).attr('shape');
+						var shape = jq(source).attr('iconImg');
+						var modelType=jq(source).attr('modelType');
 						if(wfModel){
 							var x=jq(source).draggable('proxy').offset().left;
 							var y=jq(source).draggable('proxy').offset().top;
@@ -94,7 +112,7 @@ jq(function(){
 		                    var scrollLeft = workflow.getScrollLeft();
 		                    var scrollTop  = workflow.getScrollTop();
 		                  //alert(xOffset+"|"+yOffset+"|"+scrollLeft+"|"+scrollTop);
-		                    addModel(wfModel,x-xOffset+scrollLeft,y-yOffset+scrollTop,shape);
+		                    addModel(wfModel,x-xOffset+scrollLeft,y-yOffset+scrollTop,shape,modelType);
 						}
 					}
 				});
@@ -108,14 +126,27 @@ jq(function(){
 		window.opener._list_grid_obj.datagrid('reload');
 	} );
 });
-function addModel(name,x,y,icon){
+function addModel(name,x,y,icon,type){
 	var model = null;
-	if(icon!=null&&icon!=undefined)
+	if(icon!=null&&icon!=undefined){
 		model = eval("new draw2d."+name+"('"+icon+"')");
-	else
-		model = eval("new draw2d."+name+"()");
+		model.generateId();
+		workflow.addModel(model,x,y);
+	}else{
+		if(type=='container'){
+			//model = new draw2d.MyCanvas("subProcessPainArea"); 
+			//workflow.getCommandStack().execute(new draw2d.CommandAdd(workflow,model,x,y,workflow));
+			model = eval("new draw2d."+name+"(openTaskProperties,openSubProcess)");
+			model.generateId();
+			workflow.addModel(model,x,y);
+		}else{
+			model = eval("new draw2d."+name+"(openTaskProperties)");
+			model.generateId();
+			workflow.addModel(model,x,y);
+		}
+	}
 	//userTask.setContent("DM Approve");
-	model.generateId();
+	//model.generateId();
 	//var id= task.getId();
 	//task.id=id;
 	//task.setId(id);
@@ -123,12 +154,16 @@ function addModel(name,x,y,icon){
 	//task.taskName=id;
 	//var parent = workflow.getBestCompartmentFigure(x,y);
 	//workflow.getCommandStack().execute(new draw2d.CommandAdd(workflow,task,x,y,parent));
-	workflow.addModel(model,x,y);
+	//workflow.addModel(model,x,y);
+}
+function openSubProcess(t){
+	alert('view subprocess');
+	task=t;
 }
 function openTaskProperties(id){
-	//alert(id);
 	if(!is_open_properties_panel)
 		_designer.layout('expand','east');
+	
 	_properties_panel_obj.panel('refresh','${ctx}/wf/procdef/procdef!forTaskProperties.action?taskId='+id);
 }
 function openProcessProperties(id){
@@ -200,17 +235,17 @@ function exportProcessDef(obj){
 				<div id="task" title="Task" iconCls="palette-menu-icon" selected="true" class="palette-menu">
 					<a href="##" class="easyui-linkbutton" plain="true" iconCls="user-task-icon" wfModel="UserTask">User Task</a><br>
 					<a href="##" class="easyui-linkbutton" plain="true" iconCls="manual-task-icon" wfModel="ManualTask">Manual Task</a><br>
-					<a href="##" class="easyui-linkbutton" plain="true" iconCls="service-task-icon">Service Task</a><br>
-					<a href="##" class="easyui-linkbutton" plain="true" iconCls="script-task-icon">Script Task</a><br>
-					<a href="##" class="easyui-linkbutton" plain="true" iconCls="mail-task-icon">Mail Task</a><br>
-					<a href="##" class="easyui-linkbutton" plain="true" iconCls="receive-task-icon">Receive Task</a><br>
-					<a href="##" class="easyui-linkbutton" plain="true" iconCls="business-rule-task-icon">Business Rule Task</a><br>
-					<a href="##" class="easyui-linkbutton" plain="true" iconCls="subprocess-icon">SubProcess</a><br>
-					<a href="##" class="easyui-linkbutton" plain="true" iconCls="callactivity-icon">CallActivity</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="service-task-icon" wfModel="ServiceTask">Service Task</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="script-task-icon" wfModel="ScriptTask">Script Task</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="mail-task-icon" wfModel="MailTask">Mail Task</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="receive-task-icon" wfModel="ReceiveTask">Receive Task</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="business-rule-task-icon" wfModel="BusinessRuleTask">Business Rule Task</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="subprocess-icon" wfModel="SubProcess" modelType="container">SubProcess</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="callactivity-icon" wfModel="CallActivity">CallActivity</a><br>
 				</div>
 				<div id="gateway" title="Gateway" iconCls="palette-menu-icon" class="palette-menu">
-					<a href="##" class="easyui-linkbutton" plain="true" iconCls="parallel-gateway-icon" wfModel="ParallelGateway" shape="${ctx}/js/designer/icons/type.gateway.parallel.png">ParallelGateway</a><br>
-					<a href="##" class="easyui-linkbutton" plain="true" iconCls="exclusive-gateway-icon" wfModel="ExclusiveGateway" shape="${ctx}/js/designer/icons/type.gateway.exclusive.png">ExclusiveGateway</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="parallel-gateway-icon" wfModel="ParallelGateway" iconImg="${ctx}/js/designer/icons/type.gateway.parallel.png">ParallelGateway</a><br>
+					<a href="##" class="easyui-linkbutton" plain="true" iconCls="exclusive-gateway-icon" wfModel="ExclusiveGateway" iconImg="${ctx}/js/designer/icons/type.gateway.exclusive.png">ExclusiveGateway</a><br>
 				</div>
 				<div id="boundary-event" title="Boundary event" iconCls="palette-menu-icon" class="palette-menu">
 					<a href="##" class="easyui-linkbutton" plain="true" iconCls="timer-boundary-event-icon">TimerBoundaryEvent</a><br>
@@ -265,6 +300,9 @@ function exportProcessDef(obj){
 	<div id="task-context-menu" class="easyui-menu" style="width:120px;">
 		<div id="properties-task-context-menu" iconCls="properties-icon">Properties</div>
 		<div id="delete-task-context-menu" iconCls="icon-remove">Delete</div>
+	</div>
+	<!-- form configuration window -->
+	<div id="form-win" title="Form Configuration" style="width:750px;height:600px;">
 	</div>
 	<!-- listener configuration window -->
 	<div id="listener-win" title="Listener Configuration" style="width:750px;height:500px;">

@@ -1,0 +1,139 @@
+END
+candidateUsersConfig.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/digi/2007/Expeditor%20Research/!svn/ver/1303/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/candidateUsersConfig.jsp
+END
+flowProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/digi/2007/Expeditor%20Research/!svn/ver/1308/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/flowProperties.jsp
+END
+processProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/processProperties.jsp
+END
+parser.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/digi/2007/Expeditor%20Research/!svn/ver/1309/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/parser.jsp
+END
+taskListenerConfig.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/digi/2007/Expeditor%20Research/!svn/ver/1305/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/taskListenerConfig.jsp
+END
+executionListenerConfig.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 156
+/digi/2007/Expeditor%20Research/!svn/ver/1305/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/executionListenerConfig.jsp
+END
+serviceTaskProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/serviceTaskProperties.jsp
+END
+taskGeneral.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 144
+/digi/2007/Expeditor%20Research/!svn/ver/1303/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/taskGeneral.jsp
+END
+candidateGroupsConfig.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/digi/2007/Expeditor%20Research/!svn/ver/1303/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/candidateGroupsConfig.jsp
+END
+taskMultiInstance.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 150
+/digi/2007/Expeditor%20Research/!svn/ver/1308/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/taskMultiInstance.jsp
+END
+flowListenerConfig.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/flowListenerConfig.jsp
+END
+scriptTaskProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/scriptTaskProperties.jsp
+END
+diagram.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 140
+/digi/2007/Expeditor%20Research/!svn/ver/1308/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/diagram.jsp
+END
+callActivityProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 155
+/digi/2007/Expeditor%20Research/!svn/ver/1309/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/callActivityProperties.jsp
+END
+index.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 138
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/index.jsp
+END
+processListenerConfig.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/processListenerConfig.jsp
+END
+taskFormConfig.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/taskFormConfig.jsp
+END
+manualTaskProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 153
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/manualTaskProperties.jsp
+END
+userTaskProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/userTaskProperties.jsp
+END
+taskProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 147
+/digi/2007/Expeditor%20Research/!svn/ver/1303/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/taskProperties.jsp
+END
+receiveTaskProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 154
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/receiveTaskProperties.jsp
+END
+mailTaskProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 151
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/mailTaskProperties.jsp
+END
+businessRuleTaskProperties.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 159
+/digi/2007/Expeditor%20Research/!svn/ver/1306/branches/framework-1.0.1/framework-web/src/main/webapp/WEB-INF/content/wf/designer/businessRuleTaskProperties.jsp
+END

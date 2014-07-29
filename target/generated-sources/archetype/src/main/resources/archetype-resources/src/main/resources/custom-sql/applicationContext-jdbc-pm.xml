@@ -1,0 +1,47 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="${version}" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-lazy-init="true">
+
+	<description>Spring Jdbc Template配置</description>
+
+	<bean id="userDao" class="${package}.persistence.dao.pm.UserDao">
+		<property name="searchUserByGroupSql">
+			<value><![CDATA[
+			SELECT U.USER_ID,U.SSO,U.NAME,U.EMAIL,U.USER_STATUS
+  			FROM    T_PM_USER U
+  			${symbol_pound}${symbol_pound} Dynamic Content
+  			${symbol_pound}if(${symbol_dollar}groupId)
+       		INNER JOIN T_PM_USERGROUP UG ON UG.USER_ID = U.USER_ID
+       		${symbol_pound}end
+			WHERE 1=1
+			${symbol_pound}if(${symbol_dollar}sso)
+			AND U.SSO=':sso'
+			${symbol_pound}end
+			${symbol_pound}if(${symbol_dollar}name)
+			AND U.NAME LIKE '%:name%'
+			${symbol_pound}end
+			${symbol_pound}if(${symbol_dollar}email) 
+			AND U.EMAIL='%:email%'
+			${symbol_pound}end
+			${symbol_pound}if(${symbol_dollar}groupId) 
+			AND UG.GROUP_ID=:groupId
+			${symbol_pound}end
+			ORDER BY U.NAME
+			]]></value>
+		</property>
+	</bean>
+	
+<!--	<bean id="moduleDao" class="${package}.pm.ModuleDao">-->
+<!--		<property name="searchUserByModule">-->
+<!--			<value>-->
+<!--			<![CDATA[-->
+<!--			-->
+<!--			]]>-->
+<!--			</value>-->
+<!--		</property>-->
+<!--	</bean>-->
+</beans>

@@ -1,0 +1,20 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="${version}" encoding="UTF-8"?>
+<project name="mybatis tools" default="generate.code" xmlns:artifact="antlib:org.apache.maven.artifact.ant" basedir=".">
+	<property name="generated.source.dir" value="${symbol_dollar}{basedir}" />
+	
+	<artifact:dependencies pathId="toolslib" settingsFile="E:${symbol_escape}opensource${symbol_escape}springside-3.3.2-all-in-one${symbol_escape}springside-3.3.2${symbol_escape}tools${symbol_escape}maven${symbol_escape}apache-maven-2.2.1${symbol_escape}conf${symbol_escape}settings.xml">
+		<pom file="../../pom.xml" />
+	</artifact:dependencies>
+	
+	<target name="generate.code" description="Generate the files">
+		<taskdef name="mbgenerator" classname="org.mybatis.generator.ant.GeneratorAntTask" classpathref="toolslib" />
+		<mbgenerator overwrite="true" configfile="generatorConfig.xml" verbose="true">
+			<propertyset>
+				<propertyref name="generated.source.dir" />
+			</propertyset>
+		</mbgenerator>
+	</target>
+</project>

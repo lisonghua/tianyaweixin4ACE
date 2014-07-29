@@ -4,7 +4,6 @@
 <script type="text/javascript">
 <!--
 var listenerFieldsEditCount = 0;
-var listenerId="<%=request.getParameter("listenerId")%>";
 jq(function(){
 	
 	_listener_event_type=jq('#listenerEventType').combobox({
@@ -126,12 +125,12 @@ function refreshAllListenerFields(){
 	}
 }
 function createNewListener(){
-	var newListener = new draw2d.Line.Listener();
+	var newListener = new draw2d.DecoratedConnection.Listener();
     return newListener;   
 }
 function getExsitingListener(){
-	if(listenerId != "" && listenerId != null && listenerId!="null"&&listenerId!="NULL"){
-		var listener = line.getListener(listenerId);
+	if(executionListenerId != "" && executionListenerId != null && executionListenerId!="null"&&executionListenerId!="NULL"){
+		var listener = line.getListener(executionListenerId);
 		return listener;
 	}
 }
@@ -168,7 +167,7 @@ function getListenerFieldsGridChangeRows(){
     return changesRows;
 }
 function saveListenerConfig(){
-	if(listenerId != "" && listenerId != null && listenerId!="null"&&listenerId!="NULL"){
+	if(executionListenerId != "" && executionListenerId != null && executionListenerId!="null"&&executionListenerId!="NULL"){
 		var listener = getExsitingListener();
 		var r = updateExistingListener(listener);
 		if(!r)return;		
@@ -194,7 +193,7 @@ function insertNewListener(listener){
     var insertRows = changesRows['inserted'];   
     if (insertRows.length>0) {   
         for (var i=0;i<insertRows.length;i++) {
-            var field = new draw2d.Line.Listener.Field();
+            var field = new draw2d.DecoratedConnection.Listener.Field();
     		field.name=insertRows[i].fieldName;
     		field.value=insertRows[i].value;
     		field.type=insertRows[i].type;
@@ -222,7 +221,7 @@ function updateExistingListener(listener){
     var deleteRows = changesRows['deleted'];
     if (insertRows.length>0) {   
         for (var i=0;i<insertRows.length;i++) {   
-        	var field = new draw2d.Line.Listener.Field();
+        	var field = new draw2d.DecoratedConnection.Listener.Field();
     		field.name=insertRows[i].fieldName;
     		field.value=insertRows[i].value;
     		field.type=insertRows[i].type;
@@ -249,9 +248,9 @@ function updateExistingListener(listener){
 }
 
 function populateListenerProperties(){
-	if(listenerId != "" && listenerId != null && listenerId!="null"&&listenerId!="NULL"){
-		var listener = line.getListener(listenerId);
-		_listener_event_type.combobox('setValue',listener.event);
+	if(executionListenerId != "" && executionListenerId != null && executionListenerId!="null"&&executionListenerId!="NULL"){
+		var listener = line.getListener(executionListenerId);
+		_listener_event_type.combobox('select',listener.event);
 		var serviceType = listener.serviceType;
 		jq('input[name="listenerServiceType"]').each(function(i){
 			if(this.value==serviceType){

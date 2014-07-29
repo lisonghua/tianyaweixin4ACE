@@ -8,7 +8,7 @@ draw2d.ParallelGateway=function(_url){
 	this.gatewayName=null;
 	this.setDimension(40,40);
 };
-draw2d.ParallelGateway.prototype=new draw2d.Node();
+draw2d.ParallelGateway.prototype=new draw2d.ResizeImage();
 draw2d.ParallelGateway.prototype.type="draw2d.ParallelGateway";
 draw2d.ParallelGateway.prototype.generateId=function(){
 	this.id="parallelGateway"+Sequence.create();
@@ -89,4 +89,9 @@ draw2d.ParallelGateway.prototype.toBpmnDI=function(){
 	xml=xml+'<omgdc:Bounds height="'+h+'" width="'+w+'" x="'+x+'" y="'+y+'"/>\n';
 	xml=xml+'</bpmndi:BPMNShape>\n';
 	return xml;
+};	
+draw2d.ParallelGateway.prototype.toObject=function(jqObject){
+	this.id=jq(jqObject).attr('id');
+	this.gatewayId=jq(jqObject).attr('id');
+	this.gatewayName=jq(jqObject).attr('name');
 };	

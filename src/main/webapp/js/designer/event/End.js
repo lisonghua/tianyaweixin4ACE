@@ -8,7 +8,7 @@ this.eventId='end';
 this.eventName='End';
 this.setDimension(30,30);
 };
-draw2d.End.prototype=new draw2d.Node();
+draw2d.End.prototype=new draw2d.ResizeImage();
 draw2d.End.prototype.type="draw2d.End";
 draw2d.End.prototype.createHTMLElement=function(){
 	var item = draw2d.ResizeImage.prototype.createHTMLElement.call(this);
@@ -68,13 +68,8 @@ draw2d.End.prototype.toXML=function(){
 	var xml='<endEvent id="'+this.eventId+'" name="'+this.eventName+'"></endEvent>\n';
 	return xml;
 };
-draw2d.End.prototype.toBpmnDI=function(){
-	var w=this.getWidth();
-	var h=this.getHeight();
-	var x=this.getAbsoluteX();
-	var y=this.getAbsoluteY();
-	var xml='<bpmndi:BPMNShape bpmnElement="'+this.eventId+'" id="BPMNShape_'+this.eventId+'">\n';
-	xml=xml+'<omgdc:Bounds height="'+h+'" width="'+w+'" x="'+x+'" y="'+y+'"/>\n';
-	xml=xml+'</bpmndi:BPMNShape>\n';
-	return xml;
+draw2d.End.prototype.toObject=function(jqObject){
+	this.id=jq(jqObject).attr('id');
+	this.eventId=jq(jqObject).attr('id');
+	this.eventName=jq(jqObject).attr('name');
 };

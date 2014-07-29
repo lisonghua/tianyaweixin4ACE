@@ -1,4 +1,4 @@
-draw2d.Task = function() {
+draw2d.Task = function(configPropCallback) {
 	this.cornerWidth = 15;
 	this.cornerHeight = 15;
 	this.rightOutputPort = null;
@@ -6,18 +6,29 @@ draw2d.Task = function() {
 	this.topOutputPort = null;
 	this.leftOutputPort = null;
 	draw2d.Node.call(this);
-	this.setDimension(120,60);
+	this.setDimension(130,60);
 	this.originalHeight = -1;
 	this.taskId=null;
-	this.taskName=null;
-	this.performerType=null;
+	this.taskName="";
+	/*this.performerType=null;
 	this.isUseExpression=false;
 	this.expression=null;
 	this.formKey = null;
+	*/
 	this.documentation=null;
 	this.listeners=new draw2d.ArrayList();
-	this.candidateUsers=new draw2d.ArrayList();
+	this.asynchronous=null;
+	this.exclusive=true;
+	this.isSequential=false;
+	this._loopCardinality=null;
+	this._collection=null;
+	this._elementVariable=null;
+	this._completionCondition=null;
+	this.openPropertiesCallBack=configPropCallback;
+	this.setIcon();
+	/*this.candidateUsers=new draw2d.ArrayList();
 	this.candidateGroups=new draw2d.ArrayList();
+	*/
 };
 draw2d.Task.prototype = new draw2d.Node();
 draw2d.Task.prototype.type = "Task";
@@ -25,6 +36,15 @@ draw2d.Task.prototype.generateId=function(){
 	this.id="task"+Sequence.create();
 	this.taskId=this.id;
 };
+draw2d.Task.prototype.getTaskTopLeftClassName=function(){
+	return 'task-top-left';
+}
+draw2d.Task.prototype.getTaskTopRightClassName=function(){
+	return 'task-top-right';
+}
+draw2d.Task.prototype.getTaskHeaderClassName=function(){
+	return 'task-header';
+}
 draw2d.Task.prototype.createHTMLElement = function() {
 	var item = document.createElement("div");
 	item.id = this.id;
@@ -37,12 +57,12 @@ draw2d.Task.prototype.createHTMLElement = function() {
 	item.style.zIndex = "" + draw2d.Figure.ZOrderBaseIndex;
 	
 	this.top_left = document.createElement("div");
-	this.top_left.className="task-top-left";
+	this.top_left.className=this.getTaskTopLeftClassName();
 	this.top_left.style.width = this.cornerWidth + "px";
 	this.top_left.style.height = this.cornerHeight + "px";
 	
 	this.top_right = document.createElement("div");
-	this.top_right.className="task-top-right";
+	this.top_right.className=this.getTaskTopRightClassName();
 	this.top_right.style.width = this.cornerWidth + "px";
 	this.top_right.style.height = this.cornerHeight + "px";
 	
@@ -57,7 +77,7 @@ draw2d.Task.prototype.createHTMLElement = function() {
 	this.bottom_right.style.height = this.cornerHeight + "px";
 	
 	this.header = document.createElement("div");
-	this.header.className="task-header";
+	this.header.className=this.getTaskHeaderClassName();
 	this.header.style.position = "absolute";
 	this.header.style.left = this.cornerWidth + "px";
 	this.header.style.top = "0px";
@@ -75,6 +95,7 @@ draw2d.Task.prototype.createHTMLElement = function() {
 	this.textarea.className="task-textarea";
 	this.textarea.style.position = "absolute";
 	this.textarea.style.left = "0px";
+	this.textarea.innerText = this.taskName;
 	this.textarea.style.top = this.cornerHeight + "px";
 	this.disableTextSelection(this.textarea);
 	
@@ -103,16 +124,16 @@ draw2d.Task.prototype.setDimension = function(w, h) {
 			this.footer.style.top = (this.height - this.cornerHeight) + "px";
 		}
 		if (this.rightOutputPort !== null) {
-			this.rightOutputPort.setPosition(this.width, this.height / 2);
+			this.rightOutputPort.setPosition(this.width+5, this.height / 2);
 		}
 		if (this.bottomOutputPort !== null) {
-			this.bottomOutputPort.setPosition(this.width/2, this.height);
+			this.bottomOutputPort.setPosition(this.width/2, this.height+5);
 		}
 		if (this.leftOutputPort !== null) {
-			this.leftOutputPort.setPosition(0, this.height / 2);
+			this.leftOutputPort.setPosition(-5, this.height / 2);
 		}
 		if (this.topOutputPort !== null) {
-			this.topOutputPort.setPosition(this.width/2, 0);
+			this.topOutputPort.setPosition(this.width/2, -5);
 		}
 	}catch(e){
 	}
@@ -160,24 +181,24 @@ draw2d.Task.prototype.setWorkflow = function(_5019) {
 		this.leftOutputPort = new draw2d.MyOutputPort();
 		this.leftOutputPort.setWorkflow(_5019);
 		this.leftOutputPort.setName("leftOutputPort");
-		this.addPort(this.leftOutputPort, 0, this.height / 2);
+		this.addPort(this.leftOutputPort, -5, this.height / 2);
 		
 		this.topOutputPort = new draw2d.MyOutputPort();
 		this.topOutputPort.setWorkflow(_5019);
 		this.topOutputPort.setName("topOutputPort");
-		this.addPort(this.topOutputPort, this.width/2, 0);
+		this.addPort(this.topOutputPort, this.width/2, -5);
 		
 		this.rightOutputPort = new draw2d.MyOutputPort();
 		this.rightOutputPort.setMaxFanOut(5);
 		this.rightOutputPort.setWorkflow(_5019);
 		this.rightOutputPort.setName("rightOutputPort");
-		this.addPort(this.rightOutputPort, this.width, this.height / 2);
+		this.addPort(this.rightOutputPort, this.width+5, this.height / 2);
 		
 		this.bottomOutputPort = new draw2d.MyOutputPort();
 		this.bottomOutputPort.setMaxFanOut(5);
 		this.bottomOutputPort.setWorkflow(_5019);
 		this.bottomOutputPort.setName("bottomOutputPort");
-		this.addPort(this.bottomOutputPort, this.width/2, this.height);
+		this.addPort(this.bottomOutputPort, this.width/2, this.height+5);
 	}
 };
 draw2d.Task.prototype.toggle = function() {
@@ -199,15 +220,15 @@ draw2d.Task.prototype.onDoubleClick=function(){
 */
 draw2d.Task.prototype.getContextMenu=function(){
 	if(this.workflow.disabled)return null;
-	var menu =new draw2d.ContextMenu(100, 50);
+	var menu =new draw2d.ContextMenu(100, 100);
 	var data = {task:this};
 	menu.appendMenuItem(new draw2d.ContextMenuItem("Properties", "properties-icon",data,function(x,y)
 	{
 		var data = this.getData();
 		var task = data.task;
 		var tid = task.getId();
-		if(typeof openTaskProperties != "undefined"){
-			openTaskProperties(tid);
+		if(typeof task.openPropertiesCallBack != "undefined"){
+			task.openPropertiesCallBack(tid);
 		}
 	}));
 	menu.appendMenuItem(new draw2d.ContextMenuItem("Delete", "icon-remove",data,function(x,y)
@@ -222,6 +243,8 @@ draw2d.Task.prototype.getContextMenu=function(){
 	
 	return menu;
 };
+draw2d.Task.prototype.getIconClassName = function(){
+};
 draw2d.Task.prototype.setIcon = function(){
 	this.icon = document.createElement("div");
 	this.icon.style.position = "absolute";
@@ -229,6 +252,7 @@ draw2d.Task.prototype.setIcon = function(){
 	this.icon.style.height = this.cornerHeight + "px";
 	this.icon.style.left = "10px";
 	this.icon.style.top = "2px";
+	this.icon.className = this.getIconClassName();
 	this.getHTMLElement().appendChild(this.icon);
 	return this.icon;
 };
@@ -250,7 +274,7 @@ draw2d.Task.prototype.addListener=function(listener){
 draw2d.Task.prototype.setListeners=function(listeners){
 	this.listeners = listeners;
 };
-draw2d.Task.prototype.getCandidateUser=function(sso){
+/*draw2d.Task.prototype.getCandidateUser=function(sso){
 	for(var i=0;i<this.candidateUsers.getSize();i++){
 		var candidate = this.candidateUsers.get(i);
 		if(candidate.sso===sso){
@@ -283,7 +307,7 @@ draw2d.Task.prototype.deleteCandidateGroup=function(name){
 draw2d.Task.prototype.addCandidateGroup=function(name){
 	if(!this.candidateGroups.contains(name))
 		this.candidateGroups.add(name);
-};
+};*/
 draw2d.Task.prototype.setHighlight=function(){
 	this.getHTMLElement().className="task-highlight";
 };
@@ -297,3 +321,145 @@ draw2d.Task.prototype.onMouseLeave=function(){
 		onTaskMouseLeave(this);
 	}
 };
+draw2d.Task.prototype.getStartElementXML=function(){
+	
+};
+draw2d.Task.prototype.getGeneralXML=function(){
+	var name = this.taskId;
+	var taskName = trim(this.taskName);
+	if(taskName != null && taskName != "")
+		name = taskName;
+	var xml=' id="'+this.taskId+'" name="'+name+'" ';
+	if(this.asynchronous){
+		xml=xml+'activiti:async="true" '
+	}
+	if(this.exclusive!=null&&this.exclusive!=undefined&&!this.exclusive){
+		xml=xml+'activiti:exclusive="false" '
+	}
+	return xml;
+}
+draw2d.Task.prototype.getEndElementXML=function(){
+	
+};
+draw2d.Task.prototype.getDocumentationXML=function(){
+	return "";
+};
+draw2d.Task.prototype.getMultiInstanceXML=function(){
+	var xml = '';
+	if(this.isSequential){
+		xml=xml+'<multiInstanceLoopCharacteristics ';
+		if(this._elementVariable!=null&&this._elementVariable!='')
+			xml=xml+'activiti:elementVariable="'+this._elementVariable+'" ';
+		if(this._collection!=null&&this._collection!='')
+			xml=xml+'activiti:collection="'+this._collection+'" ';
+		xml=xml+'>\n'
+		if(this._loopCardinality!=null&&this._loopCardinality!='')
+			xml=xml+'<loopCardinality>'+this._loopCardinality+'</loopCardinality>\n';
+		if(this._completionCondition!=null&&this._completionCondition!='')
+			xml=xml+'<completionCondition>'+this._completionCondition+'</completionCondition>\n'
+		xml=xml+'</multiInstanceLoopCharacteristics>\n';
+	}
+	return xml;
+};
+draw2d.Task.prototype.parseMultiInstanceXML=function(jqObject){
+	var multiInstanceLoop=jq(jqObject).find('multiInstanceLoopCharacteristics');
+	if(multiInstanceLoop!=null&&multiInstanceLoop.length!=0){
+		this.isSequential=true;
+		this._elementVariable=jq(multiInstanceLoop).attr('activiti:elementVariable');
+		this._collection=jq(multiInstanceLoop).attr('activiti:collection');
+		this._loopCardinality=trim(jq(multiInstanceLoop).find('loopCardinality').text());
+		this._completionCondition=trim(jq(multiInstanceLoop).find('completionCondition').text());
+	}
+};
+draw2d.Task.prototype.parseTaskGeneralXML=function(jqObject){ 
+	this.id=jq(jqObject).attr('id');
+	this.taskId=jq(jqObject).attr('id');
+	this.taskName=jq(jqObject).attr('name');
+	this.asynchronous=jq(jqObject).attr('activiti:async');
+	this.exclusive=jq(jqObject).attr('activiti:exclusive')==false?false:true;
+	if(this.taskId!= this.taskName)
+		this.setContent(this.taskName);
+};
+draw2d.Task.prototype.parseExecutionListenerXML=function(jqObject){
+	var executionlisteners = jq(jqObject).find('extensionElements').find('activiti\\:executionListener');
+	for(var i=0;i<executionlisteners.length;i++){
+		var listener = new draw2d.Task.Listener();
+		listener.toObject(executionlisteners[i]);
+		this.addListener(listener);
+	}
+};
+draw2d.Task.prototype.parseDocumentationXML=function(jqObject){
+	var documentation = trim(jq(jqObject).find('documentation').text());
+	if(documentation != null && documentation != "")
+		this.documentation=documentation;
+};
+draw2d.Task.prototype.parseShapeXML=function(jqObject,workflow){
+	var x=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('x'));
+	var y=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('y'));
+	var width=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('width'));
+	var height=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('height'));
+	this.setDimension(width,height);
+	workflow.addModel(this,x,y);
+};
+draw2d.Task.prototype.getExtensionElementsXML=function(){
+	if(this.listeners.getSize()==0)return '';
+	var xml = '<extensionElements>\n';
+	xml=xml+this.getListenersXML();
+	xml=xml+'</extensionElements>\n';
+	return xml;
+};
+draw2d.Task.prototype.getListenersXML=function(){
+	var xml = '';
+	for(var i=0;i<this.listeners.getSize();i++){
+		var listener = this.listeners.get(i);
+		xml=xml+listener.toXML();
+	}
+	return xml;
+};
+
+draw2d.Task.prototype.getMainConfigXML=function(){
+	return "";
+};
+draw2d.Task.prototype.toXML=function(){
+	return "";
+};
+draw2d.Task.prototype.toBpmnDI=function(){
+	var w=this.getWidth();
+	var h=this.getHeight();
+	var x=this.getAbsoluteX();
+	var y=this.getAbsoluteY();
+	var xml='<bpmndi:BPMNShape bpmnElement="'+this.taskId+'" id="BPMNShape_'+this.taskId+'">\n';
+	xml=xml+'<omgdc:Bounds height="'+h+'" width="'+w+'" x="'+x+'" y="'+y+'"/>\n';
+	xml=xml+'</bpmndi:BPMNShape>\n';
+	return xml;
+};
+draw2d.Task.prototype.toObject=function(jqObject){
+	
+};
+
+/**
+ * Task listener object definition
+ */
+draw2d.Task.Listener=function(){
+	draw2d.Process.Listener.call(this);
+};
+draw2d.Task.Listener.prototype=new draw2d.Process.Listener();
+draw2d.Task.Listener.prototype.toXML=function(){
+var xml = '<activiti:executionListener event="'+this.event+'" ';
+	if(this.serviceType=='javaClass'){
+		xml=xml+'class="'+this.serviceClass+'" ';
+	}else if(this.serviceType=='expression'){
+		xml=xml+'expression="'+this.serviceExpression+'" ';
+	}
+	xml=xml+'>\n';
+	xml=xml+this.getFieldsXML();
+	xml=xml+'</activiti:executionListener>\n'
+	return xml;
+};
+/**
+ * Task listener field object definition
+ */
+draw2d.Task.Listener.Field=function(){
+	draw2d.Process.Listener.Field.call(this);
+};
+draw2d.Task.Listener.Field.prototype=new draw2d.Process.Listener.Field();

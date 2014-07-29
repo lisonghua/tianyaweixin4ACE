@@ -1,0 +1,1 @@
+mvn -Dtest -DfailIfNoTests=false archetype:create-from-project

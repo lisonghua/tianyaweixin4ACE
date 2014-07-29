@@ -1,0 +1,26 @@
+#set( $symbol_pound = '#' )
+#set( $symbol_dollar = '$' )
+#set( $symbol_escape = '\' )
+<?xml version="${version}" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering 
+  SYSTEM "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+<hibernate-reverse-engineering>
+<!--	<type-mapping>-->
+<!--		<sql-type jdbc-type="NUMBER" hibernate-type="integer" ></sql-type>-->
+<!--	</type-mapping>-->
+<!--	<table-filter match-schema=".*" match-name="t_pm_privilege" package="${package}.pm.bak"/>-->
+<!--	<table-filter match-schema=".*" match-name=".*" package="${package}.pm.bak"/>-->
+<!--	 <table-filter match-schema=".*" match-name="t_common_dic" exclude="true"/>-->
+	 <table-filter match-schema=".*" match-name="t_common_seq" package="${package}.common.seq"/> 
+<!--<table-filter match-schema=".*" match-name="t_sm_server" package="${package}.sm"/>-->
+<!--<table-filter match-schema=".*" match-name="t_sm_datasource" package="${package}.sm"/>-->
+<!--<table-filter match-schema=".*" match-name="t_pm_user" package="${package}.pm"/>-->
+<!--<table-filter match-schema=".*" match-name="t_pm_organization" package="${package}.pm"/>-->
+<!--<table-filter match-schema=".*" match-name="t_pm_userorg" package="${package}.pm"/>-->
+<!--<table-filter match-schema=".*" match-name="t_rp_.*" package="${package}.rp"/>-->
+<!--<table-filter match-schema=".*" match-name="t_pm_.*" package="${package}.pm"/>-->
+<!--<table-filter match-schema=".*" match-name="act_.*" package="${package}.wf"/>-->
+<!--<table-filter match-schema=".*" match-name="t_wf_bizprocmap" package="${package}.wf"/>-->
+<!--<table-filter match-schema=".*" match-name="t_demo_application" package="${package}.wf.demo"/>-->
+<table-filter match-schema=".*" match-name="T_WF_EMAILTEMP" package="${package}.framework.wf"/>
+</hibernate-reverse-engineering>

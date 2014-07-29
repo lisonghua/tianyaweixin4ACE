@@ -18,7 +18,7 @@ jq(function(){
 	_task_candidate_groups_list=jq('#task-candidate-groups-list').datagrid({
 		title:"Candidate Groups",
 		singleSelect:true,
-		height:450,
+		height:200,
 		rownumbers:true,
 		striped:true,
 		toolbar:[{

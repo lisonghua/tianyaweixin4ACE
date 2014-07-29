@@ -8,7 +8,7 @@ draw2d.Start=function(_url){
 	this.eventName='Start';
 	this.setDimension(30,30);
 };
-draw2d.Start.prototype=new draw2d.Node();
+draw2d.Start.prototype=new draw2d.ResizeImage();
 draw2d.Start.prototype.type="draw2d.Start";
 draw2d.Start.prototype.createHTMLElement=function(){
 	var item = draw2d.ResizeImage.prototype.createHTMLElement.call(this);
@@ -72,13 +72,8 @@ draw2d.Start.prototype.toXML=function(){
 	var xml='<startEvent id="'+this.eventId+'" name="'+this.eventName+'" activiti:initiator="_wf_default_v_applicant"></startEvent>\n';
 	return xml;
 };
-draw2d.Start.prototype.toBpmnDI=function(){
-	var w=this.getWidth();
-	var h=this.getHeight();
-	var x=this.getAbsoluteX();
-	var y=this.getAbsoluteY();
-	var xml='<bpmndi:BPMNShape bpmnElement="'+this.eventId+'" id="BPMNShape_'+this.eventId+'">\n';
-	xml=xml+'<omgdc:Bounds height="'+h+'" width="'+w+'" x="'+x+'" y="'+y+'"/>\n';
-	xml=xml+'</bpmndi:BPMNShape>\n';
-	return xml;
-};	
+draw2d.Start.prototype.toObject=function(jqObject){
+	this.id=jq(jqObject).attr('id');
+	this.eventId=jq(jqObject).attr('id');
+	this.eventName=jq(jqObject).attr('name');
+};

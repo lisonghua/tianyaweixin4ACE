@@ -8,7 +8,7 @@ draw2d.ExclusiveGateway=function(_url){
 	this.gatewayName=null;
 	this.setDimension(40,40);
 };
-draw2d.ExclusiveGateway.prototype=new draw2d.Node();
+draw2d.ExclusiveGateway.prototype=new draw2d.ResizeImage();
 draw2d.ExclusiveGateway.prototype.type="draw2d.ExclusiveGateway";
 draw2d.ExclusiveGateway.prototype.generateId=function(){
 	this.id="exclusiveGateway"+Sequence.create();
@@ -80,13 +80,8 @@ draw2d.ExclusiveGateway.prototype.toXML=function(){
 	var xml='<exclusiveGateway id="'+this.gatewayId+'" name="'+name+'"></exclusiveGateway>\n';
 	return xml;
 };
-draw2d.ExclusiveGateway.prototype.toBpmnDI=function(){
-	var w=this.getWidth();
-	var h=this.getHeight();
-	var x=this.getAbsoluteX();
-	var y=this.getAbsoluteY();
-	var xml='<bpmndi:BPMNShape bpmnElement="'+this.gatewayId+'" id="BPMNShape_'+this.gatewayId+'">\n';
-	xml=xml+'<omgdc:Bounds height="'+h+'" width="'+w+'" x="'+x+'" y="'+y+'"/>\n';
-	xml=xml+'</bpmndi:BPMNShape>\n';
-	return xml;
+draw2d.ExclusiveGateway.prototype.toObject=function(jqObject){
+	this.id=jq(jqObject).attr('id');
+	this.gatewayId=jq(jqObject).attr('id');
+	this.gatewayName=jq(jqObject).attr('name');
 };	

@@ -34,12 +34,14 @@ jq(function(){
 		//sortName:'id',
 	    //sortOrder:'asc',
 	    striped:true,
+	    fitColumns:true,
 	    toolbar:[{
 	        text:'New',
 	        iconCls:'icon-add',
 	        handler:function(){
 	    		_listener_win.window('open');
 	    		//_listener_frame.src="";
+	    		executionListenerId=null;
 	    		_listener_win.window('refresh','${ctx}/wf/procdef/procdef!forProcessListenerConfig.action');
 	    		//alert(_listener_frame.document.body.innerHTML);
 	        }
@@ -56,6 +58,7 @@ jq(function(){
 		//idField:'id',
 		rownumbers:true,
 	    striped:true,
+	    fitColumns:true,
 	    toolbar:[{
 	        text:'New',
 	        iconCls:'icon-add',
@@ -105,11 +108,13 @@ function listenerActionBt(value,rowData,rowIndex){
 	return e+'&nbsp;'+d;
 }
 function editListener(id){
+	executionListenerId=id;
 	_listener_win.window('open');
 	_listener_win.window('refresh','${ctx}/wf/procdef/procdef!forProcessListenerConfig.action?listenerId='+id);
 }
 function deleteListener(id){
 	process.deleteListener(id);
+	executionListenerId=null;
 	loadTaskListeners();
 }
 function saveProcessProperties(){
@@ -245,7 +250,7 @@ function processVariablesActionFormatter(value,rowData,rowIndex){
 				</table>
 			</div>
 			<div id="variables" title="Variables" class="properties-menu">
-				<table id="process-variables-table">
+				<table id="process-variables-table" style="padding:5px;">
 					<thead>
 					<tr>
 					<th field="id" hidden="true"></th>
@@ -296,7 +301,7 @@ function processVariablesActionFormatter(value,rowData,rowIndex){
 					</thead>
 				</table>
 			</div>
-			<div id="listeners" title="Listeners" style="overflow: hidden;">
+			<div id="listeners" title="Listeners" style="overflow: hidden;padding:5px;">
 				<table id="process-listeners-list">
 					<thead>
 					<tr>

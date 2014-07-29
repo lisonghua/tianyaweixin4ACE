@@ -1,12 +1,12 @@
 draw2d.DecoratedConnection=function(){
 	draw2d.Connection.call(this);
 	var decorator = new draw2d.ArrowConnectionDecorator();
-	var color = new draw2d.Color(126,148,177);
-	decorator.setBackgroundColor(color);
+	var black = new draw2d.Color(0,0,0);
+	decorator.setBackgroundColor(black);
 	this.setTargetDecorator(decorator);
 	this.setRouter(new draw2d.ManhattanConnectionRouter());
-	this.setLineWidth(2);
-	this.setColor(color);
+	this.setLineWidth(1);
+	this.setColor(black);
 	this.lineId=null;
 	this.lineName=null;
 	this.condition=null;
@@ -122,3 +122,32 @@ draw2d.DecoratedConnection.prototype.deleteListener=function(id){
 draw2d.DecoratedConnection.prototype.setListener=function(listener){
 	this.listeners.add(listener);
 };
+draw2d.DecoratedConnection.prototype.toObject=function(jqObject,workflow,startPort,endPort){
+	var cmd=new draw2d.CommandConnect(workflow,startPort,endPort);
+	this.id=jq(jqObject).attr('id');
+	this.lineId=jq(jqObject).attr('id');
+	this.lineName=jq(jqObject).attr('name');
+	var condition=trim(jq(jqObject).find('conditionExpression').text());
+	if(this.lineId!=this.lineName)
+		this.setLabel(name);
+	if(condition != null && condition!=""){
+		this.condition=condition;
+	}
+	cmd.setConnection(this);
+	workflow.getCommandStack().execute(cmd);
+};
+
+/**
+ * Line listener object definition
+ */
+draw2d.DecoratedConnection.Listener=function(){
+	draw2d.Process.Listener.call(this);
+};
+draw2d.DecoratedConnection.Listener.prototype=new draw2d.Process.Listener();
+/**
+ * Line listener field object definition
+ */
+draw2d.DecoratedConnection.Listener.Field=function(){
+	draw2d.Process.Listener.Field.call(this);
+};
+draw2d.DecoratedConnection.Listener.Field.prototype=new draw2d.Process.Listener.Field();
