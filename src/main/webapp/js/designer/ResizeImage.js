@@ -62,10 +62,10 @@ draw2d.ResizeImage.prototype.toBpmnDI=function(){
 	return xml;
 };
 draw2d.ResizeImage.prototype.parseShapeXML=function(jqObject,workflow){
-	var x=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('x'));
-	var y=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('y'));
-	var width=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('width'));
-	var height=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('height'));
+	var x=parseInt(jq(jqObject).find('[nodeName="omgdc:Bounds"]').attr('x'));
+	var y=parseInt(jq(jqObject).find('[nodeName="omgdc:Bounds"]').attr('y'));
+	var width=parseInt(jq(jqObject).find('[nodeName="omgdc:Bounds"]').attr('width'));
+	var height=parseInt(jq(jqObject).find('[nodeName="omgdc:Bounds"]').attr('height'));
 	this.setDimension(width,height);
 	workflow.addFigure(this,x,y);
 };

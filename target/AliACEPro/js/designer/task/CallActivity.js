@@ -50,7 +50,7 @@ draw2d.CallActivity.prototype.getInputParamsXML=function(){
 	return xml;
 }
 draw2d.CallActivity.prototype.parseInputParamsXML=function(jqObject){
-	var inputParams=jq(jqObject).find("extensionElements").find("activiti\\:in");
+	var inputParams=jq(jqObject).find("extensionElements").find('[nodeName="activiti:in"]');
 	for(var i=0;i<inputParams.length;i++){
 		var inputParam=new draw2d.CallActivity.Parameter.InputParameter();
 		inputParam.toObject(inputParams[i]);
@@ -66,7 +66,7 @@ draw2d.CallActivity.prototype.getOutputParamsXML=function(){
 	return xml;
 }
 draw2d.CallActivity.prototype.parseOutputParamsXML=function(jqObject){
-	var outputParams=jq(jqObject).find("extensionElements").find("activiti\\:out");
+	var outputParams=jq(jqObject).find("extensionElements").find('[nodeName="activiti:out"]');
 	for(var i=0;i<outputParams.length;i++){
 		var outputParam=new draw2d.CallActivity.Parameter.OutputParameter();
 		outputParam.toObject(outputParams[i]);

@@ -31,7 +31,7 @@
 	});
 	function openProcessDef(){
 		jq.ajax({
-			url:"${ctx}/wf/procdef/procdef!getProcessDefXML.action?procdefId="+processDefinitionId,
+			url:"procdef!getProcessDefXML.action?procdefId="+processDefinitionId,
 			type: 'POST',
 			/*
 			data:{
@@ -68,12 +68,12 @@
 					workflow.process.id=id;
 					workflow.process.name=id;
 				// Add the start,end,connector to the canvas
-				  var startObj = new draw2d.Start("${ctx}/js/designer/icons/type.startevent.none.png");
+				  var startObj = new draw2d.Start("../../js/designer/icons/type.startevent.none.png");
 				  //startObj.setId("start");
 				  //alert(3);
 				  workflow.addFigure(startObj, 200,50);
 				  
-				  var endObj   = new draw2d.End("${ctx}/js/designer/icons/type.endevent.none.png");
+				  var endObj   = new draw2d.End("../../js/designer/icons/type.endevent.none.png");
 				  //endObj.setId("end");
 				  //alert(4);
 				  workflow.addFigure(endObj,200,400);

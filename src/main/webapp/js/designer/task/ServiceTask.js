@@ -86,7 +86,7 @@ draw2d.ServiceTask.prototype.getFieldsXML=function(){
 	return xml;
 };
 draw2d.ServiceTask.prototype.parseFieldsXML=function(jqObject){
-	var fields=jq(jqObject).find("extensionElements").find("activiti\\:field");
+	var fields=jq(jqObject).find("extensionElements").find('[nodeName="activiti:field"]');
 	for(var i=0;i<fields.length;i++){
 		var field=new draw2d.Process.Listener.Field();
 		field.toObject(fields[i]);

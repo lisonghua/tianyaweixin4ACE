@@ -14,13 +14,13 @@ function parseProcessDescriptor(data){
 	var exclusiveGateway = descriptor.find('exclusiveGateway');
 	var parallelGateway = descriptor.find('parallelGateway');
 	var lines = descriptor.find('sequenceFlow');
-	var shapes = descriptor.find('bpmndi\\:BPMNShape');
-	var edges = descriptor.find('bpmndi\\:BPMNEdge');
+	var shapes = descriptor.find('[nodeName="bpmndi:BPMNShape"]');//descriptor.find('bpmndi\\:BPMNShape');
+	var edges = descriptor.find('[nodeName="bpmndi:BPMNEdge"]');
 	
 	workflow.process.toObject(descriptor);
-	
+
 	startEvent.each(function(i){
-			var start = new draw2d.Start("${ctx}/js/designer/icons/type.startevent.none.png");
+			var start = new draw2d.Start("../../js/designer/icons/type.startevent.none.png");
 			start.toObject(this);
 			shapes.each(function(i){
 				var id = jq(this).attr('bpmnElement');
@@ -31,7 +31,7 @@ function parseProcessDescriptor(data){
 			});
 		});
 	endEvent.each(function(i){
-			var end = new draw2d.End("${ctx}/js/designer/icons/type.endevent.none.png");
+			var end = new draw2d.End("../../js/designer/icons/type.endevent.none.png");
 			end.toObject(this);
 			shapes.each(function(i){
 				var id = jq(this).attr('bpmnElement');
@@ -174,7 +174,7 @@ function parseLineXML(lines,edges,workflow){
 			if(eid==lid){
 				var startPort = null;
 				var endPort = null;
-				var points = jq(edges[i]).find('omgdi\\:waypoint');
+				var points = jq(edges[i]).find('[nodeName="omgdi:waypoint"]');
 				var len = points.length;
 				var startX = jq(points[0]).attr('x');
 				var startY = jq(points[0]).attr('y');

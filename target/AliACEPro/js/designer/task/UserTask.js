@@ -331,14 +331,14 @@ draw2d.UserTask.prototype.toObject=function(jqObject){
 	this.parseDocumentationXML(jqObject);
 	
 	
-	var tasklisteners = jq(jqObject).find('extensionElements').find('activiti\\:taskListener');
+	var tasklisteners = jq(jqObject).find('extensionElements').find('[nodeName="activiti:taskListener"]');
 	for(var i=0;i<tasklisteners.length;i++){
 		var listener = new draw2d.UserTask.TaskListener();
 		listener.toObject(tasklisteners[i]);
 		this.addTaskListener(listener);
 	}
 	this.parseExecutionListenerXML(jqObject);
-	var forms = jq(jqObject).find('extensionElements').find('activiti\\:formProperty');
+	var forms = jq(jqObject).find('extensionElements').find('[nodeName="activiti:formProperty"]');
 	for(var i=0;i<forms.length;i++){
 		var form = new draw2d.UserTask.FormProperty();
 		form.toObject(forms[i]);

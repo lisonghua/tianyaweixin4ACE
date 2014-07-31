@@ -381,7 +381,7 @@ draw2d.Task.prototype.parseTaskGeneralXML=function(jqObject){
 		this.setContent(this.taskName);
 };
 draw2d.Task.prototype.parseExecutionListenerXML=function(jqObject){
-	var executionlisteners = jq(jqObject).find('extensionElements').find('activiti\\:executionListener');
+	var executionlisteners = jq(jqObject).find('extensionElements').find('[nodeName="activiti:executionListener"]');
 	for(var i=0;i<executionlisteners.length;i++){
 		var listener = new draw2d.Task.Listener();
 		listener.toObject(executionlisteners[i]);
@@ -394,10 +394,10 @@ draw2d.Task.prototype.parseDocumentationXML=function(jqObject){
 		this.documentation=documentation;
 };
 draw2d.Task.prototype.parseShapeXML=function(jqObject,workflow){
-	var x=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('x'));
-	var y=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('y'));
-	var width=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('width'));
-	var height=parseInt(jq(jqObject).find('omgdc\\:Bounds').attr('height'));
+	var x=parseInt(jq(jqObject).find('[nodeName="omgdc:Bounds"]').attr('x'));
+	var y=parseInt(jq(jqObject).find('[nodeName="omgdc:Bounds"]').attr('y'));
+	var width=parseInt(jq(jqObject).find('[nodeName="omgdc:Bounds"]').attr('width'));
+	var height=parseInt(jq(jqObject).find('[nodeName="omgdc:Bounds"]').attr('height'));
 	this.setDimension(width,height);
 	workflow.addModel(this,x,y);
 };

@@ -103,10 +103,10 @@ draw2d.MailTask.prototype.toXML=function(){
 	return xml;
 }
 draw2d.MailTask.prototype.parseMailConfigXML=function(jqObject){
-	var fields=jq(jqObject).find('extensionElements').find('activiti\\:field');
+	var fields=jq(jqObject).find('extensionElements').find('[nodeName="activiti:field"]');
 	for(var i=0;i<fields.length;i++){
 		var name=jq(fields[i]).attr('name');
-		var val=jq(fields[i]).find('activiti\\:string').text();
+		var val=jq(fields[i]).find('[nodeName="activiti:string"]').text();
 		if("to"==name){
 			this.to=val;
 		}else if("from"==name){

@@ -79,7 +79,7 @@ draw2d.Process.prototype.toObject=function(jqObject){
 		this.documentation=documentation;
 	var extentsion = jqObject.find('process > extensionElements');
 	if(extentsion != null){
-		var listeners = extentsion.find('activiti\\:executionListener');
+		var listeners = extentsion.find('[nodeName="activiti:executionListener"]');
 		for(var i=0;i<listeners.length;i++){
 			var listener=new draw2d.Process.Listener();
 			listener.toObject(this);
@@ -195,7 +195,7 @@ draw2d.Process.Listener.prototype.toObject=function(jqObject){
 		this.serviceType='javaClass';
 		this.serviceClass=clazz;
 	}
-	var fields = jq(jqObject).find('activiti\\:field');
+	var fields = jq(jqObject).find('[nodeName="activiti:field"]');
 	for(var i=0;i<fields.length;i++){
 		var field = new draw2d.Process.Listener.Field();
 		field.toObject(fields[i]);
@@ -233,8 +233,8 @@ draw2d.Process.Listener.Field.prototype.toXML=function(){
 draw2d.Process.Listener.Field.prototype.toObject=function(jqObject){
 	this.name=jq(jqObject).attr('name');
 	//alert(field.name);
-	var string = jq(jqObject).find('activiti\\:string').text();
-	var expression = jq(jqObject).find('activiti\\:expression').text();
+	var string = jq(jqObject).find('[nodeName="activiti:string"]').text();
+	var expression = jq(jqObject).find('[nodeName="activiti:expression"]').text();
 	//alert("String="+string.text()+"|"+"expression="+expression.text());
 	if(string != null && string != ""){
 		this.type='string';
